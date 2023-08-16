@@ -1,0 +1,13 @@
+
+public class Corner {
+	
+	String direction; //either NE, SE, SW, NW
+	String terrain; //either "field" or "none"
+	
+	public Corner (String d, String t) {
+		direction = d;
+		terrain = t;
+	}
+	
+	
+}

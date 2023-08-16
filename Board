@@ -1,0 +1,33 @@
+import java.util.ArrayList;
+
+public class Board 
+{
+   ArrayList <ArrayList<LandTile>> Grid = new ArrayList <ArrayList<LandTile>>();
+   
+   public int scoreFields(Player p)
+   {
+	   
+   }
+   
+   public int scoreCities(Player p)
+   {
+	   
+   }
+   
+   public int scoreRoads(Player p)
+   {
+	   
+   }
+   
+   public int scoreRivers(Player p)
+   {
+	   
+   }
+   
+   public int scoreCloisters(Player p)
+   {
+	   
+   }
+   
+   
+}

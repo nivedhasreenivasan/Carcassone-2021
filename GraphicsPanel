@@ -1,0 +1,16 @@
+import java.awt.*;
+import javax.swing.*;
+public class GraphicsPanel extends JFrame {
+	private static final int WIDTH = 1600;
+	private static final int HEIGHT = 900;
+	
+	public GraphicsPanel(String title)
+	{
+		super(title);
+		setSize(WIDTH, HEIGHT);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		add(new graphics());
+		setVisible(true);
+	}
+}
+

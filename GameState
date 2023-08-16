@@ -1,0 +1,55 @@
+//DEFINITELY NOT FINISHED
+public class GameState {
+	private String currentPlayer;
+	private String playerTurn;
+	private int turnNum;//keeps track of total turns taken
+	private String[] playerOrder;
+	private int turnCount;//used to determine when to go back to p1's turn (0-3) (if turnCount>3 it's set to 0
+	private String stateOfPlay;//tells whether it is start screen, play screen or end screen
+	Board board;
+	TileDeck tileDeck;
+	//TODO:need to initialize players and store in playerOrder array
+	
+	public GameState(String s)
+	{
+		stateOfPlay = s;
+		playerTurn = ""; //players will decide order of play
+		turnNum = -1;
+		playerOrder = new String[4];
+		turnCount = 0;
+		board = new Board();
+		tileDeck = new TileDeck();
+	}
+	
+	public String getStateOfPlay()
+	{return stateOfPlay;}
+	
+	public void setStateOfPlay(String s)
+	{stateOfPlay = s;}
+	
+	public void setPlayerOrder(String p1, String p2, String p3, String p4)
+	{
+		playerOrder[0] = p1;
+		playerOrder[1] = p2;
+		playerOrder[2] = p3;
+		playerOrder[3] = p4;
+	}
+	
+	public void nextPlayerTurn()
+	{
+		if(turnCount < 4)
+			turnCount ++;
+		else
+			turnCount = 0;
+	}
+	
+	public String getCurrentPlayer()
+	{return playerOrder[turnCount];}
+	
+	public void rotateTile(LandTile t)
+	{
+		
+	}
+	
+	
+}

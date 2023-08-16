@@ -1,0 +1,116 @@
+import java.awt.Graphics.*;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseEvent;
+import java.awt.*;
+import javax.swing.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import java.awt.Color;
+import java.awt.Font;
+
+public class graphics extends JPanel implements MouseListener{
+	//if it has an 'r' in front that means it is a river tile
+	BufferedImage startScreen, playScreen;
+	BufferedImage rStart;
+	GameState gamestate;
+	int x, y;
+	
+	//TODO: Display who chose which color when colored box is clicked
+	
+	public graphics()
+	{
+		gamestate = new GameState("Start");
+		try {
+				startScreen = ImageIO.read(Graphics.class.getResource("/Carcassonne/Start Screen.PNG"));
+				playScreen = ImageIO.read(Graphics.class.getResource("/Carcassonne/playField1.JPG"));
+				//rStart = ImageIO.read(Graphics.class.getResource("/Carcassonne/Tile RA.PNG"));
+				
+				
+
+			}
+		
+			catch(Exception E)
+			{
+				System.out.println("Exception Error");
+				return;
+			}
+		
+		addMouseListener(this);
+	}
+	
+	public void paint(Graphics g)
+	{
+		if(gamestate.getStateOfPlay().equals("Start"))
+			g.drawImage(startScreen, 0, 0, getWidth(), getHeight(), null);
+		//g.drawRect(585, 495, 219, 67);//testing data
+		
+		if(gamestate.getStateOfPlay().equals("Choosing"))
+		{
+			g.drawImage(playScreen, 0, 0, getWidth(), getHeight(), null);
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("TimesRoman", 0, 50/*Changes size of font*/));
+			g.drawString("Pick Your Colors", 595, 200);
+			g.setFont(new Font("TimesRoman", 0, 20/*Changes size of font*/));
+			g.drawString("(p1 choose first, then p2, etc.)", 650, 230);
+			
+			//drawing colored boxes
+			g.setColor(Color.RED);
+			g.fillRect(400, 300, 150, 50);
+			
+			g.setColor(Color.YELLOW);
+			g.fillRect(600, 300, 150, 50);
+			
+			g.setColor(Color.GREEN);
+			g.fillRect(800, 300, 150, 50);
+			
+			g.setColor(Color.BLUE);
+			g.fillRect(1000, 300, 150, 50);
+		}
+		
+		if(gamestate.getStateOfPlay().equals("Play"))
+		{
+			g.drawImage(playScreen, 0, 0, getWidth(), getHeight(), null);
+			
+			//Drawing the box in upper left displaying recent scoring event(s)
+			g.setColor(Color.WHITE);
+			g.fillRect(0, 0, 175, 50);
+			g.setColor(Color.BLACK);
+			g.drawString("Recent Score(s)", 0, 14);
+			
+			//Drawing Player and their meeples
+			g.setColor(Color.WHITE);
+			g.setFont(new Font("TimesRoman", 0, 25/*Changes size of font*/));
+			g.drawString("Player 1: ", 0, 75);
+			g.setFont(new Font("TimesRoman", 0, 20/*Changes size of font*/));
+			//g.drawString("Meeples: " + , 40, 100);
+		}
+	}
+	
+	public void mousePressed(MouseEvent e) {
+		
+	}
+	public void mouseReleased(MouseEvent e) {
+		
+	}
+	public void mouseEntered(MouseEvent e) {
+		
+	}
+	public void mouseExited(MouseEvent e) {
+		
+	}
+	public void mouseClicked(MouseEvent e) {
+		x = e.getX(); y = e.getY();
+		System.out.println("Clicked on: " + x + "," + y);
+		if(gamestate.getStateOfPlay().equals("Start")) {
+		if(x >= 585 && x <= 804 && y >= 495 && y <= 562)//If they click on start
+			{
+			gamestate.setStateOfPlay("Choosing");
+			repaint();
+			}
+		}
+	}
+}
+

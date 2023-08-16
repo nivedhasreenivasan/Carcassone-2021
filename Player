@@ -1,0 +1,90 @@
+public class Player
+{
+  private int score; //Used to determine who wins a game, given by board functions.
+  private String color; //Used to distinguish each player.
+  private int meepleNum; //Mainly a debug variable to make sure meeple are behaving like they should be.
+  private LandTile currentTile; //Keep's track of which tile a player currently has.
+  private String name;//p1, p2, p3, p4
+  
+  //INITIALIZATION
+  //This code initalizes the player object, presumably at the start of every game N number of times.
+  public Player(String c)
+  {
+    //NOTE: Worried about color and currentTile initializations, do change them if they just don't fit at all.
+    color=c;
+    score=0;
+    meepleNum=7;
+    currentTile=null; //NOTE: help how do I give a player this.
+    name = "not working";
+  }
+  
+  
+  //GET FUNCTIONS
+  //These will give you the cool variables that each player has.
+  public void setName(String s)
+  {name = s;}
+  
+  public String getName()
+  {return name;}
+  
+  public int getScore()
+  {
+    return score;
+  }
+  
+  public String getColor()
+  {
+    return color;
+  }
+  
+  public int getmeepleNum()
+  {
+    return meepleNum;
+  }
+  
+  //Note: what is this i'm guessing here.
+  public LandTile getcurrentTile()
+  {
+    return currentTile;
+  }
+  
+  
+  //SET FUNCTION
+  //Just, putting this here incase it's how it's supposed to work.
+  public void setcurrentTile(LandTile h)
+  {
+    currentTile=h;
+  }
+  
+  
+  //FUNKY SET FUNCTIONS
+  //These functions are basically set functions but with some twists!
+  //Increases a player's score by n and returns their new score, each player's score starts at 0 at the begining of a game.
+  public int addPoints(int n)
+  {
+    score=score+n;
+    return score;
+  }
+  
+  //Resets a player's score, for the begining of a game I suppose.
+  public void resetPoints()
+  {
+    score=0;
+  }
+  //Probably a good idea to also have a resetMeeple function, since i wouldn't rely on the board code perfectly restoring them.
+  
+  //Note: The below functions don't do anything to actual meeple, they're just here to keep track of how many a player has to make coding easier(?).
+  //Increases a player's meeple count by 1 and returns their new amount of meeple. Called when a meeple has done it's job on the board.
+  public int addMeeple()
+  {
+    meepleNum=meepleNum+1;
+    return meepleNum;
+  }
+  
+  //Lowers a player's meeple count by 1 and returns their new amount of meeple, called when a meeple is sent to the board.
+  public int removeMeeple()
+  {
+    meepleNum=meepleNum-1;
+    return meepleNum;
+  }
+}

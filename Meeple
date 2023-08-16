@@ -1,0 +1,88 @@
+import java.awt.image.*;
+import java.awt.image.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+
+//TODO: add method to change the meeple's picture
+	  
+
+public class Meeple {
+	BufferedImage standing;
+	
+	private String color;
+	private String job;
+	private int x;//Meeple's coords on screen
+	private int y;
+	private boolean isPlaced;//Is placed on board or not
+	private boolean isStanding;//Is farmer or not(mainly to determine when the meeple's pic should swap to lying down
+	LandTile tileOccupied;//Holds the tile the meeple is placed on
+	BufferedImage blue, green, red, yellow;
+	
+	public Meeple(String colour) throws IOException
+	{
+		color = colour;
+		job = null;
+		x = -1;
+		y = -1;
+		isPlaced = false;
+		isStanding = true;
+		tileOccupied = null;
+		
+		//I threw IOException to see if it can be drawn (haven't tested)
+		blue = ImageIO.read(Meeple.class.getResource("/Carcassonne/bluemeeple.PNG"));
+		green = ImageIO.read(Meeple.class.getResource("/Carcassonne/greenmeeple.PNG"));
+		red = ImageIO.read(Meeple.class.getResource("/Carcassonne/redmeeple.PNG"));
+		yellow = ImageIO.read(Meeple.class.getResource("/Carcassonne/yellowmeeple.PNG"));
+	}
+	
+	public void changeMeepleCoords(int newX, int newY)
+	{
+		x = newX;
+		y = newY;
+	}
+	
+	
+	
+	public void changeJob(String s)
+	{job = s;}
+	
+	public void setColor(String c)
+	{color = c;}
+	
+	public String getColor()
+	{return color;}
+	
+	public String getJob()
+	{return job;}
+	
+	public void setMeepleX(int newX)
+	{x = newX;}
+	
+	public int getMeepleX()
+	{return x;}
+	
+	public void setMeepleY(int newY)
+	{y = newY;}
+	
+	public int getMeepleY()
+	{return y;}
+	
+	public void setPlacement(boolean newPlacement)
+	{isPlaced = newPlacement;}
+	
+	public boolean getPlacemenet()
+	{return isPlaced;}
+	
+	//used when a meeple transitions into/from a farmer
+	public void setStanding(boolean newStanding)
+	{isStanding = newStanding;}
+	
+	public boolean getStanding()
+	{return isStanding;}
+	
+	public LandTile getOccupiedTile()
+	{return tileOccupied;}
+	
+	public void setOccupiedTile(LandTile t)
+	{tileOccupied = t;}
+}

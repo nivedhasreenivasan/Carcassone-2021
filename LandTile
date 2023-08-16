@@ -1,0 +1,20 @@
+import java.awt.image.BufferedImage;
+
+public class LandTile {
+
+	Edge N,E,S,W;
+	Corner NE,SE,SW,NW;
+	BufferedImage b;
+	
+	public LandTile (Edge north, Edge east, Edge south, Edge west, Corner northeast, Corner southeast, Corner southwest, Corner northwest, BufferedImage bi) {
+		N = north;
+		E = east;
+		S = south;
+		W = west;
+		NE = northeast;
+		SE = southeast;
+		SW = southwest;
+		NW = northwest;
+		b = bi;
+	}
+}

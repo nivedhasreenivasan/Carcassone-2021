@@ -1,0 +1,110 @@
+import java.util.ArrayList;
+import java.util.Random;
+public class TileDeck {
+	private int numTiles;
+	private ArrayList<LandTile> drawPile;
+	private ArrayList<LandTile> riverDrawPile;
+	
+	//TODO: Hardcode every single type of tile into the initialization
+	public TileDeck() 
+	{
+		drawPile=new ArrayList<LandTile>();
+		riverDrawPile=new ArrayList<LandTile>();
+		//Hardcoding these from left to right top to bottom on the canvas page, river comes later.
+		fill(4, field, field, field, field, field, field, field, field)
+		//Actually now that i look at the edge&corner classes more, they seem incomplete, should probably hardcode this later.
+		numTiles=72;
+	}
+	
+	//Checks if both decks are empty, returns true if they are and false if they aren't, probably should change this to check numTiles.
+	public boolean isEmpty() {
+		return drawPile.isEmpty()&&riverDrawPile.isEmpty();
+	}
+	
+	//Randomly shuffles both decks. 
+	//Important to note for this function is the random number generator's seed, this will be constant for bugtesting but we should randomize it later.
+	public void shuffle() {
+		Random Randy=new Random(5);
+		int first=1;
+		int second=0;
+		int size=drawPile.size();
+		//Ticks is how many times the below loop will loop, I'm making it bigger than the size of the arraylist since this is a bad way of doing this.
+		int ticks=size*2;
+		landTile temp;
+		//This loop randomly swaps the positions of any random two landTiles in the drawPile, it'd probably be better to just grab all the elements and randomly put them into a new ArrayList.
+		while (ticks>0)
+		{
+			first=Randy.ints(0,size);
+			second=Randy.ints(0, size);
+			//Check to stop a shuffle from not doing anything 
+			while (first==second&&size>1)
+			{
+				first=Randy.ints(0,size);
+				second=Randy.ints(0, size);
+			}
+			temp=drawPile.get(second);
+			drawPile.set(second, drawPile.get(first));
+			drawPile.set(first, temp);
+			ticks--;
+		}
+		
+		//We then do the same thing but for the river deck
+		int size=riverDrawPile.size();
+		int ticks=size*2;
+		while (ticks>0)
+		{
+			first=Randy.ints(0,size);
+			second=Randy.ints(0, size);
+			while (first==second&&size>1)
+			{
+				first=Randy.ints(0,size);
+				second=Randy.ints(0, size);
+			}
+			temp=riverDrawPile.get(second);
+			riverDrawPile.set(second, riverDrawPile.get(first));
+			riverDrawPile.set(first, temp);
+			ticks--;
+		}
+		
+	}
+	
+	//Returns the number of tiles left in both the regular and river decks
+	public int getNumTiles() {
+		return numTiles;
+	}
+	
+	//This function also uses a random number generator, be sure to randomize the seed later!
+	//I do not know how to make this give the tile to a certain player so it'll just return it for now.
+	public LandTile draw() {
+		Random Randy=new Random(5);
+		int index=Randy.ints(0, drawPile.size());
+		landTile temp=drawPile.get(index);
+		drawPile.remove(index);
+		numTiles=drawPile.size()+riverDrawPile.size();
+		return temp;
+	}
+	
+	//Does the same thing as draw but for river tiles. This function also uses a random number generator.
+	public LandTile drawRiver() {
+		Random Randy=new Random(5);
+		int index=Randy.ints(0, riverDrawPile.size());
+		landTile temp=riverDrawPile.get(index);
+		riverDrawPile.remove(index);
+		numTiles=drawPile.size()+riverDrawPile.size();
+		return temp;
+	}
+	
+	//Creating this so I don't go insane manually hardcoding the landTiles
+	//Why do they need to know their direction if the landTile already keeps track of them :(
+	//There's no fillRiver because I'm fairly certain this'll work for river tiles as well. 
+	public void fill(int howMany, String one, String two, String three, String four, String five, String six, String seven, String eight)
+	{
+		while (howMany>0)
+		{
+			drawPile.add(new landTile(new Edge("N", one), new Corner("NE", two), new Edge("E", three), new Corner("SE", four), new Edge("S", five), new Corner("SW", six), new Edge("W", seven), new Corner("NW", eight)));
+			howMany--;
+		}
+	}
+	
+
+}
